@@ -9,22 +9,22 @@
  * License (version 3) as published by the FSF - Free Software
  * Foundation
  */
-       
+
 
 /**
  * This file contains functions dealing with the retrieval of agent-related
  * information from an OSSEC installation.
- * 
+ *
  * @copyright Copyright (c) 2006-2008, Daniel B. Cid, All rights reserved.
  * @package ossec_web_ui
  * @author  Daniel B. Cid <dcid@ossec.net>
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU Public License
- * 
+ *
  */
 
 /**
  * Get agent operating system information
- * 
+ *
  * Returns as string containing operating system information from the given
  * file, which should be the full path to an agent information file located
  * in $OSSEC_HOME/queue/agent-info. The returned string will be in a format
@@ -42,10 +42,10 @@ function __os_getagentos($agent_file)
     {
         return("No system info available");
     }
-    
+
     $buffer = fgets($fp, 1024);
     $buffer = rtrim($buffer);
-    
+
     fclose($fp);
 
     return($buffer);
@@ -53,16 +53,16 @@ function __os_getagentos($agent_file)
 
 /**
  * Get an array of agent information.
- * 
+ *
  * Returns an array of agent information, one element per agent. Each element
  * is an array containing the following keys:
- * 
+ *
  * change_time - Time agent was last heard from<br/>
  * name        - Agent name<br/>
  * ip          - Agent IP address<br/>
  * os          - Agent OS Information<br/>
  * connected   - True if change_time is not older than hardcoded value of 20 minutes.
- * 
+ *
  * @param array $ossec_handle
  *   Array of information representing an OSSEC installation.
  * @return array
@@ -85,11 +85,11 @@ function os_getagents($ossec_handle)
 
     $agent_list[$agent_count]{'change_time'} = time();;
     $agent_list[$agent_count]{'name'} = "ossec-server";
-    $agent_list[$agent_count]{'ip'} = "127.0.0.1";
+    $agent_list[$agent_count]{'ip'} =   `hostname -I`;
     $agent_list[$agent_count]{'os'} = `uname -a`;
     $agent_list[$agent_count]{'connected'} = 1;
     $agent_count++;
-    
+
     /* Getting all agent files */
     if(@$dh = opendir($ossec_handle{'agent_dir'}))
     {
@@ -99,7 +99,7 @@ function os_getagents($ossec_handle)
             $ip = "";
             $split_error = 0;
             $tmp_file = $file;
-            
+
             if(($file == ".") || ($file == ".."))
             {
                 continue;
@@ -109,7 +109,7 @@ function os_getagents($ossec_handle)
             while(1)
             {
                 @list($_name, $_ip) = explode("-", $tmp_file, 2);
-                
+
                 /* Nothing more to split */
                 if(!isset($_name) || !isset($_ip))
                 {
@@ -135,17 +135,17 @@ function os_getagents($ossec_handle)
             }
 
             $fmtime = filemtime($ossec_handle{'agent_dir'}.'/'.$file);
-            
+
             /* If false, file does not exist */
             if($fmtime == FALSE)
             {
                 continue;
             }
-            
+
             $agent_list[$agent_count]{'change_time'} = $fmtime;
             $agent_list[$agent_count]{'name'} = $name;
             $agent_list[$agent_count]{'ip'} = $ip;
-            $agent_list[$agent_count]{'os'} = 
+            $agent_list[$agent_count]{'os'} =
                         __os_getagentos($ossec_handle{'agent_dir'}.'/'.$file);
             if((time(0) - $fmtime) < $ossec_handle{'notify_time'})
             {

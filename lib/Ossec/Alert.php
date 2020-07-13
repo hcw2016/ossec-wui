@@ -3,7 +3,7 @@
 
 /**
  * Ossec Framework
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -26,8 +26,8 @@
  */
 
 /**
- * 
- * 
+ *
+ *
  * @category   Ossec
  * @package    Ossec
  * @copyright  Copyright (c) 2007-2008, Daniel B. Cid, All rights reserved.
@@ -41,7 +41,7 @@ class Ossec_Alert {
     var $srcip;
     var $description;
     var $location;
-    var $msg;
+    //var $msg;
 
     function toHtml( ) {
 
@@ -62,15 +62,20 @@ class Ossec_Alert {
         $class = "level_{$this->level} id_{$this->id} srcip_{$this->srcip}";
 
         return <<<HTML
-        <div class="alert $class">
+        <tr>
+          <td>{$this->level}</td>
+          <td>$id_link</td>
+          <td>{$this->description}</td>
+          <td>{$this->location}</td>
+        </tr>
+        <!--<div class="alert $class">
             <span class="alertdate">$date</span>
             <div class="alertindent">Level: </div><div class="alertlevel">{$this->level} - <span class="alertdescription">{$this->description}</span></div>
             <div class="alertindent">Rule Id: </div>$id_link <br />
             <div class="alertindent">Location: </div>{$this->location}<br />
             $srcip
             $user
-            <div class="msg">$message</div>
-        </div>
+        </div>-->
 HTML;
     }
 };

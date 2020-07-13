@@ -1,31 +1,21 @@
-<!-- OSSEC UI header -->
+<!-- OSSEC UI Navigation Bar -->
 
 
-<div id="header">
-
-  <div id="headertitle">
-  <table>
-  <tr>
-    <td>
-      &nbsp;&nbsp;<a href="http://www.ossec.net/">
-      <img width="191" height="67" src="img/ossec_webui.png" title="Go to OSSEC.net" alt="Go to OSSEC.net"/></a>
-    </td>
-
-    <td>
-      <img width="107" height="38" src="img/webui.png"/><br>&nbsp;&nbsp; <i>Version 0.8</i>
-    </td>
-  </tr>
-  </table>
+<div id="navigation_bar" class="ui left fixed vertical menu">
+  <div class="item">
+    <a href="https://www.ossec.net"><img class="ui image" src="https://www.ossec.net/wp-content/uploads/2019/01/ossec-300x113.png"></a>
   </div>
 
-  <ul id="nav">
-  <li><a href="index.php" title="Main">Main</a></li>
-  <li><a href="index.php?f=s" title="Search events">Search</a></li>
-  <li><a href="index.php?f=i" title="Integrity checking">Integrity checking</a></li>
-  <li><a href="index.php?f=t" title="Stats">Stats</a></li>
-  <li><a href="index.php?f=a" title="Help">About</a></li>
-  </ul>
+  <a class="item" href="index.php?f=m" title="Dashboard">Dashboard</a>
+  <a class="item" href="index.php?f=s" title="Search Alerts">Alert Search</a>
+  <a class="item" href="index.php?f=i" title="Integrity Checking">File Integrity Checking</a>
+  <a class="item" href="index.php?f=t" title="Statistics">Statistics</a>
+  <a class="item" href="index.php?f=a" title="Help">About OSSEC</a>
+
+
+  <div id="nav_footer" class="ui left fixed vertical footer">
+    <p class="center">All Content &copy; 2006 - 2020 <a href="http://www.trendmicro.com"><font color="red"><br><b>Trend Micro</b></font></a>. All rights reserved</p>
+  </div>
 </div>
 
-
-<!-- END OF HEADER -->
+<!-- END OF NAVIGATION BAR -->

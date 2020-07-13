@@ -30,7 +30,7 @@ else
 		<meta name="keywords" content="ids, ossec, hids, free software" />
 		<meta name="description" content="OSSEC Web Interface" />
         <?php
-        
+
         /* If we are in the main page, refresh the results every 90 seconds.*/
         if($USER_f == "m")
         {
@@ -38,27 +38,51 @@ else
         }
         ?>
         <link rel="shortcut icon" href="css/images/favicon.ico" />
-        <link rel="stylesheet" type="text/css" media="all" 
-              href="css/cal.css" title="css/cal.css" />
+        <!--<link rel="stylesheet" type="text/css" media="all"
+              href="css/cal.css" title="css/cal.css" />-->
         <script type="text/javascript" src="js/calendar.js"></script>
         <script type="text/javascript" src="js/calendar-en.js"></script>
         <script type="text/javascript" src="js/calendar-setup.js"></script>
         <script type="text/javascript" src="js/prototype.js"></script>
         <script type="text/javascript" src="js/hide.js"></script>
-        
-        <link rel="stylesheet" rev="stylesheet"
-                      href="css/css.css" type="text/css" />
+
+				<!-- Semantic Framwork Imports -->
+				<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+				<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+				<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+				<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+				<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+				<script src="https://cdn.datatables.net/1.10.21/js/dataTables.semanticui.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+				<script>
+						$(document).ready(function() {
+		    			$('#alertsTable').DataTable({
+								lengthChange: false,
+								scrollCollapse: true,
+								searching: false
+							});
+						} );
+				</script>
+				<!-- End Semantic Framework Imports -->
+
+      <!--  <link rel="stylesheet" rev="stylesheet"
+                      href="css/css.css" type="text/css" />-->
+
+						<link rel="stylesheet" rev="stylesheet"
+								      href="css/tmp.css" type="text/css" />
 	</head>
-    
+
 <body>
 <br/>
 
 
-<?php 
+<?php
     /* Defining the error messages */
     $int_error="Internal error. Try again later.\n <br />";
     $include_error="Unable to include file:";
-    
+
     /* Including the header */
     if(!(include("site/header.html")))
     {
@@ -78,7 +102,7 @@ else
             <?php
 
             $array_lib = array("ossec_conf.php", "lib/ossec_categories.php",
-                          "lib/ossec_formats.php",  
+                          "lib/ossec_formats.php",
                           "lib/os_lib_handle.php",
                           "lib/os_lib_agent.php",
                           "lib/os_lib_mapping.php",
@@ -106,7 +130,7 @@ else
                 return(1);
             }
 
-			switch ($USER_f) 
+			switch ($USER_f)
             {
 			case "s":
                 if(!include("site/search.php"))
@@ -149,7 +173,7 @@ else
                     echo "$int_error";
                     return(1);
                 }
-			   break;	
+			   break;
             case "i":
                 if(!include("site/syscheck.php"))
                 {
@@ -159,9 +183,9 @@ else
                 break;
 			default:
                 echo '<b class="red">Invalid argument.</b>';
-                return(1);						   
+                return(1);
 			}
-            
+
            ?>
 
 
@@ -170,16 +194,6 @@ else
     <br /><br />
     </div>
     </div>
-
-<?php
-    /* Including the footer */
-    if(!(include("site/footer.html")))
-    {
-        echo "$include_error 'site/footer.html'.\n<br />";
-        echo "$int_error";
-        return(1);
-    }
-?>
     </div>
 </body>
 </html>

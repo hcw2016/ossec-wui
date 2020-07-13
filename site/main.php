@@ -9,7 +9,7 @@
  * License (version 3) as published by the FSF - Free Software
  * Foundation
  */
-       
+
 
 
 /* OS PHP init */
@@ -39,25 +39,41 @@ if(($agent_list = os_getagents($ossec_handle)) == NULL)
 
 /* Printing current date */
 /* echo '<div class="smaller2">'.date('F dS Y h:i:s A').'</div><br />'; */
-echo '<div class="smaller2">'.date('F dS, Y h:i:s A').'</div><br />';
+//echo '<div class="smaller2">'.date('F dS, Y h:i:s A').'</div><br />';
 
 
 /* Getting syscheck information */
 $syscheck_list = os_getsyscheck($ossec_handle);
 
-echo '<table width="95%"><tr><td width="45%" valign="top">';
+//echo '<table width="95%"><tr><td width="45%" valign="top">';
 
 
 /* Available agents */
-echo "<h2>Available&nbsp;agents:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2><br />\n\n";
+//echo "<h2>Available&nbsp;agents:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2><br />\n\n";
 
 
 /* Agent count for java script */
 $agent_count = 0;
 
-
+echo '<div class="ui card">
+  <div class="image">
+    <img src="/images/avatar2/large/kristy.png">
+  </div>
+  <div class="content">
+    <a class="header">Kristy</a>
+    <div class="meta">
+      <span class="date">Joined in 2013</span>
+    </div>
+    <div class="description">
+      Kristy is an art director living in New York.
+    </div>
+  </div>
+  <div class="extra content">
+      <span class="dot" style="height:25px;width=25px;background-color:green;border-radius:50%;display: inline-block;"></span>
+  </div>
+</div>';
 /* Looping all agents */
-foreach ($agent_list as $agent) 
+foreach ($agent_list as $agent)
 {
     $atitle = "";
     $aclass = "";
@@ -76,16 +92,16 @@ foreach ($agent_list as $agent)
         $amsg = " - Inactive";
     }
 
-    echo '
+   echo '
         <span id="toggleagt'.$agent_count.'">
-        <a  href="#" '.$aclass.' title="'.$atitle.'" 
+        <a  href="#" '.$aclass.' title="'.$atitle.'"
         onclick="ShowSection(\'agt'.$agent_count.'\');return false;">+'.
-        $agent{'name'}." (".$agent{'ip'}.')'.$amsg.'</a><br /> 
+        $agent{'name'}." (".$agent{'ip'}.')'.$amsg.'</a><br />
         </span>
 
         <div id="contentagt'.$agent_count.'" style="display: none">
 
-        <a  href="#" '.$aclass.' title="'.$atitle.'" 
+        <a  href="#" '.$aclass.' title="'.$atitle.'"
         onclick="HideSection(\'agt'.
         $agent_count.'\');return false;">-'.$agent{'name'}.
         " (".$agent{'ip'}.')'.$amsg.'</a>
@@ -107,8 +123,10 @@ echo '</td>';
 
 
 /* Last modified files */
-echo "<td valign='top' width='55%'><h2>Latest modified files: </h2><br />\n\n";
+/*echo "<td valign='top' width='55%'><h2>Latest modified files: </h2><br />\n\n";
 $syscheck_list = os_getsyscheck($ossec_handle);
+echo "<script>console.log($syscheck_list);</script>";
+print_r($syscheck_list{'global_list'});
 if(($syscheck_list == NULL) || ($syscheck_list{'global_list'} == NULL))
 {
     echo '<ul class="ulsmall bluez">
@@ -119,11 +137,11 @@ if(($syscheck_list == NULL) || ($syscheck_list{'global_list'} == NULL))
 }
 else
 {
-   if(isset($syscheck_list{'global_list'}) && 
+   if(isset($syscheck_list{'global_list'}) &&
       isset($syscheck_list{'global_list'}{'files'}))
    {
        $sk_count = 0;
-       
+
        foreach($syscheck_list{'global_list'}{'files'} as $syscheck)
        {
            $sk_count++;
@@ -131,11 +149,11 @@ else
            {
                break;
            }
-           
+
            # Initing file name
            $ffile_name = "";
            $ffile_name2 = "";
-           
+
            if(strlen($syscheck[2]) > 40)
            {
                $ffile_name = substr($syscheck[2], 0, 45)."..";
@@ -145,17 +163,17 @@ else
            {
                $ffile_name = $syscheck[2];
            }
-           
+
            echo '
                <span id="togglesk'.$sk_count.'">
-               <a  href="#" class="bluez" title="Expand '.$syscheck[2].'" 
+               <a  href="#" class="bluez" title="Expand '.$syscheck[2].'"
                onclick="ShowSection(\'sk'.$sk_count.'\');return false;">+'.
-               $ffile_name.'</a><br /> 
+               $ffile_name.'</a><br />
                </span>
 
                <div id="contentsk'.$sk_count.'" style="display: none">
 
-               <a  href="#" title="Hide '.$syscheck[2].'" 
+               <a  href="#" title="Hide '.$syscheck[2].'"
                onclick="HideSection(\'sk'.
                $sk_count.'\');return false;">-'.$ffile_name.'</a>
                <br />
@@ -181,17 +199,30 @@ else
 echo '</td></tr></table>
 ';
 echo "<br /> <br />\n";
-
+*/
 
 /* Getting last alerts */
-$alert_list = os_getalerts($ossec_handle, 0, 0, 30);
+/*$alert_list = os_getalerts($ossec_handle, 0, 0, 30);
 if($alert_list == NULL)
 {
     echo "<b class='red'>Unable to retrieve alerts. </b><br />\n";
 }
 else
 {
-    echo "<h2>Latest events</h2><br />\n";
+    echo "<h2>Latest events</h2>\n";
+
+    echo '  <table id=alertsTable class="ui fixed table">
+                <thead>
+                  <tr>
+                    <th>Level</th>
+                    <th>Rule ID</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+         ';
+
     $alert_count = $alert_list->size() -1;
     $alert_array = $alert_list->alerts();
 
@@ -200,6 +231,8 @@ else
         echo $alert_array[$alert_count]->toHtml();
         $alert_count--;
     }
-}
 
+    echo ' </tbody></table>';
+}
+*/
 ?>

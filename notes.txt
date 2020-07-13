@@ -1,0 +1,2 @@
+Gotchas:
+  SELinux must be disabled 
